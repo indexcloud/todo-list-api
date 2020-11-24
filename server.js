@@ -36,17 +36,15 @@ app.post("/api/todos", (req, res) => {
 // PUT /api/todos/:id
 app.put("/api/todos/:id", (req, res) => {
 	const id = req.params.id;
-	let todo = todoList.find(todo => todo.id === Number(id));
-	let todoIndex = todoList.findIndex(td => td === todo);
-	todoList[todoIndex].todo = req.body.todo;
-	res.send(todoList);
+	let todoIndex = todoList.findIndex(td => td.id === Number(id));
+	todoList[todoIndex] = {...todoList[todoIndex], ...req.body};
+	res.send(todoList[todoIndex]);
 });
 
 // DELETE /api/todos/:id
 app.delete("/api/todos/:id", (req, res) => {
 	const id = req.params.id;
-	let todo = todoList.find(todo => todo.id === Number(id));
-	let todoIndex = todoList.findIndex(td => td === todo);
+	let todoIndex = todoList.findIndex(td => td.id === Number(id));
 	todoList.splice(todoIndex, 1);
 	res.send(todoList);
 });
